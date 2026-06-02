@@ -7,11 +7,7 @@ from app_posts.models import Post
 class Likes(models.Model):
     user = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE, verbose_name="Foydalanuvchi")
 
-    post = models.ForeignKey(
-        to=Post,
-        on_delete=models.CASCADE,
-        verbose_name="Post"
-    )
+    post = models.ForeignKey(to=Post, on_delete=models.CASCADE, verbose_name="Post")
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Yaratilgan vaqt")
 
