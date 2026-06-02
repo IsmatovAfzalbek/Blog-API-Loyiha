@@ -48,8 +48,12 @@ class SignUpSerializer(serializers.ModelSerializer):
                 "message": "Username faqat harf, raqam, _ va . dan tashkil topishi kerak"
         })
             
-        user = CustomUser.objects.exclude(id = self.instance.id).filter(username = value)
+        if self.instance:
+            user = CustomUser.objects.exclude(id = self.instance.id).filter(username = value)
 
+        else:
+            user = CustomUser.objects.filter(username=value)
+        
         if user.exists():
             raise ValidationError({
                 "message": "Bu username band"
@@ -59,28 +63,34 @@ class SignUpSerializer(serializers.ModelSerializer):
     
     
     def validate_email(self, value):
-        
-        user = CustomUser.objects.exclude(id = self.instance.id).filter(email = value)
-        
+
+        user = CustomUser.objects.filter(email=value)
+
+        if self.instance:
+            user = user.exclude(id=self.instance.id)
+
         if user.exists():
             raise ValidationError({
                 "message": "Bu email band"
             })
-        
+
         return value
     
     
     def validate_phone_number(self, value):
-        
-        user = CustomUser.objects.exclude(id = self.instance.id).filter(phone_number = value)
-        
+
+        user = CustomUser.objects.filter(phone_number=value)
+
+        if self.instance:
+            user = user.exclude(id=self.instance.id)
+
         if user.exists():
             raise ValidationError({
-                "message": "Bu telefon raqam band band"
+                "message": "Bu telefon raqam band"
             })
-        
+
         return value
-            
+                
             
     
     
