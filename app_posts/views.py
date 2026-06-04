@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 
 from .models import Post
 from .serializers import PostSerializer
-from app_posts.permissions import IsOwnerPermission
+from app_posts.permissions import IsOwnerPermission, IsSuperUserOnly
 
 
 
@@ -61,6 +61,9 @@ class DetailUpdateDelete(GenericAPIView):
     def get_permissions(self):
         if self.request.method == "GET":
             return [AllowAny()]
+        if self.request.method == "DELETE":
+            return [IsSuperUserOnly()]
+        
         return [IsAuthenticated(), IsOwnerPermission()]
     
     
@@ -100,4 +103,4 @@ class DetailUpdateDelete(GenericAPIView):
         
         return Response({
             "message": "deleted"
-        }, status=status.HTTP_204_NO_CONTENT)
+        }, status=status.HTTP_200_OK)

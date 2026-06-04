@@ -66,7 +66,7 @@ class ProfileUpdateView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     
-    def patch(self, request):
+    def patch(self, request, id):
         user = request.user
         # data = request.data, instance = user bu yerda o'zgaruvchiga tenglab berganimiz uchun ham ishlaydi,
         # joyi o'zgarsa ham farq qilmaydi
@@ -86,7 +86,7 @@ class LogoutView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     
-    def delete(self, request):
+    def post(self, request):
         request.user.auth_token.delete()
         
         return Response({
