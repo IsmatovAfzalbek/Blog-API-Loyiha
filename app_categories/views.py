@@ -65,13 +65,13 @@ class CategoryDetailView(APIView):
     def patch(self, request, id):
         category = get_object_or_404(Category, id=id)
         
-        seralizer = CategorySerializer(data = request.data, instance = category, partial = True)
-        seralizer.is_valid(raise_exception=True)
-        seralizer.save()
+        serializer = CategorySerializer(data = request.data, instance = category, partial = True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         
         return Response({
         "message": "Category updated successfully",
-        "data": seralizer.data
+        "data": serializer.data
     }, status=status.HTTP_200_OK)
             
         
