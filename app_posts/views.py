@@ -6,6 +6,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django.shortcuts import get_object_or_404
 
+
 from .models import Post
 from .serializers import PostSerializer
 from app_posts.permissions import IsOwnerPermission, IsSuperUserOnly
